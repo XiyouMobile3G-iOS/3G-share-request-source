@@ -1,16 +1,16 @@
-# 3G Share — UIKit 仿写练习资源
+# 3G Share — UIKit 界面练习资源
 
-> **学长说**：学弟学妹们好！这个仓库是留给你们练手用的。里面是一套 APP 界面设计资源（PSD 源文件 + JPG 预览图 + 演示视频），不包含可直接运行的 Xcode 工程。你们需要先新建一个 iOS App 工程，再用 **Objective-C + UIKit** 把这些界面一行一行代码敲出来，尽量还原设计稿。
+> **学长说**：学弟学妹们好！这个仓库是留给你们练手用的。里面是一套 APP 界面设计资源（PSD 源文件 + JPG 预览图 + 演示视频），不包含可直接运行的 Xcode 工程。你们需要先新建一个 iOS App 工程，再用 **Objective-C + UIKit** 把这些界面一行一行代码敲出来。设计稿用于理解功能和信息层级，不要求像素级复刻。
 
 ---
 
 ## 这是什么？
 
-这是一个**界面还原练习素材仓库**。
+这是一个**UIKit 界面练习素材仓库**。
 
 **3G Share** 原本是实验室前辈在 2014 年做的一套高校创意分享平台设计，包含 8 大模块、30+ 个界面。现在它成了你们的**UIKit 实战教材**。
 
-核心任务很简单：**看着设计稿，用纯代码写出尽量一致的界面。**
+核心任务很简单：**看着设计稿理解功能，用纯代码写出功能接近、体验合理、符合 Apple HIG 的界面。**
 
 推荐练习技术栈：**Objective-C + UIKit + 纯代码 Auto Layout**。默认不使用 Storyboard / XIB，页面、组件、约束和跳转逻辑都用 OC 代码实现。
 
@@ -22,6 +22,13 @@
 - 使用 **Objective-C + UIKit**，项目可以用最新稳定版 Xcode 创建。
 - 使用纯代码布局，优先练习 `NSLayoutConstraint`、`UILayoutGuide`、Safe Area、Trait Collection 和动态字体适配。
 - 兼容当前主流 iOS 版本，并尽量适配最新 iOS 的系统外观和交互规范。
+
+UI 设计要求：
+- 不需要完全参考设计稿；设计稿主要用于确认页面功能、内容类型、导航关系和大致信息层级。
+- 最终界面可以有自己的小巧思，例如更自然的留白、更清晰的卡片层级、更顺手的菜单入口、更符合当前系统的按钮样式。
+- 自由发挥必须建立在 Apple HIG 之上。重点关注 HIG 当前强调的 hierarchy、harmony、consistency：层级清楚、视觉和设备/系统风格协调、交互遵循平台习惯。
+- 开始写 UI 前，先看 Apple 官方基础设计资料和设计原则视频，再决定页面布局、控件选择、动效和反馈。
+- 如果设计稿里的视觉细节和 HIG 或当前 iOS 系统习惯冲突，优先遵循 HIG 和系统控件规范。
 
 现代化要求：
 - 每次开工前先查看 Apple Developer Documentation 和 Human Interface Guidelines，以当时最新发布的 UIKit API、系统设计规范和 Xcode SDK 为准。
@@ -37,6 +44,8 @@
 - Liquid Glass 技术概览: https://developer.apple.com/documentation/technologyoverviews/liquid-glass
 - UIKit 外观定制: https://developer.apple.com/documentation/uikit/appearance-customization
 - Human Interface Guidelines: https://developer.apple.com/design/human-interface-guidelines
+- Apple Design Pathway: https://developer.apple.com/design/get-started/
+- Essential Design Principles: https://developer.apple.com/videos/play/wwdc2017/802/
 
 ---
 
@@ -127,17 +136,19 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 - 这个页面是由哪些"区块"组成的？（顶部导航、中间内容、底部操作区）
 - 哪些是可变内容（来自服务器/用户输入），哪些是写死的？
 - 用户能在这个页面上做什么操作？（点击、滑动、输入）
+- 如果按当前 iOS 设计风格重做，这个页面的主操作、辅助操作、信息层级应该如何呈现？
+- 哪些地方可以自由发挥，哪些地方必须遵循系统控件和 HIG 习惯？
 
 ### 2. 从大到小，先搭骨架再填肉
 ```
 步骤1：先放一个空白的 UIViewController，设置背景色
 步骤2：把页面划分为 2-3 个大区块（上/中/下），用 UIView 占位
 步骤3：在大区块里放具体的控件（Label、ImageView、Button）
-步骤4：微调间距、字体、颜色，对照设计稿精确还原
+步骤4：按 HIG 调整间距、字体、颜色和交互状态，让页面功能清楚、层级自然
 ```
 
-### 3. 颜色/字体不要"目测"
-如果设计稿里某个颜色你拿不准，打开 PSD 源文件用吸管工具取色，或者让 AI 帮你提取。不要凭感觉写 `UIColor.gray`，最后发现不对。
+### 3. 设计不是抄图
+不要把练习目标理解成像素级复制。可以参考 PSD 取色和尺寸，但最终应优先保证可读性、触控舒适度、平台一致性和功能效率。颜色、字体、圆角、毛玻璃、菜单和震动反馈都可以重新设计，只要理由清楚、体验更好。
 
 ### 4. 图片资源处理
 - Logo 和小图标：优先检查 `share+4.18最终/share logo/` 和 `share+4.18最终/新建文件夹/素材/` 里已有的 PNG；缺失时再从 PSD 中导出，放到 Assets.xcassets
@@ -158,7 +169,7 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 ### Level 1 — 项目理解（让 AI 知道你在做什么）
 
 ```
-我正在使用 UIKit 对一个名为「3G Share」的 App 进行界面还原练习。
+我正在使用 UIKit 对一个名为「3G Share」的 App 进行界面练习。
 技术栈固定为 Objective-C + UIKit + 纯代码 Auto Layout。该项目是一套完整的高校创意分享平台 UI 设计资源，包含 8 大模块：
 开机界面、登录界面、注册界面、首页、搜索、文章、活动、个人信息。
 
@@ -170,7 +181,8 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 2. 每个页面最适合用 UIKit 的哪些控件实现
 3. 哪些地方适合加入现代 UIKit 组件，例如 UIMenu、UIAction、UIContextMenuInteraction、UIFeedbackGenerator
 4. 哪些地方可以根据当前最新 iOS 设计规范做渐进增强，例如 Liquid Glass、深色模式、动态字体
-5. 建议的 Objective-C 代码文件组织方式（哪些页面可以复用基类 / 通用组件）
+5. 哪些设计稿细节可以不照搬，如何在符合 Apple HIG 的前提下重新设计
+6. 建议的 Objective-C 代码文件组织方式（哪些页面可以复用基类 / 通用组件）
 ```
 
 **用的时候**：把这段直接发给 AI，附上你看到的预览图描述或截图。
@@ -189,15 +201,16 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 【要求】
 1. 使用纯代码布局（不用 Storyboard / XIB）
 2. 支持 iPhone 各尺寸屏幕适配（使用 Auto Layout 约束）
-3. 界面元素要与设计稿保持一致：背景色、按钮样式、输入框圆角、间距等
+3. 功能和信息层级要接近设计稿，但 UI 不需要像素级还原
 4. 按钮需要绑定点击事件（先 print 模拟，后续接入真实逻辑）
 5. 如果是输入页面，处理键盘弹出时的布局调整（键盘遮挡输入框的问题）
 6. 根据当前最新 iOS 和 UIKit 官方文档，判断是否适合加入新版系统交互或视觉效果
 7. 可以加入合理的 Haptic Feedback、UIMenu、UIContextMenuInteraction 等增强，但要有版本判断和旧系统降级方案
 8. 如果使用 iOS 26 Liquid Glass 等新能力，优先使用 UIKit 原生 API，并提供低版本 fallback
+9. 设计上可以自由发挥，但必须符合 Apple HIG。写代码前请先参考 Apple Design Pathway 和 Essential Design Principles 视频
 
 【输出格式】
-- 先简要分析这个页面包含哪些 UI 元素，以及布局思路
+- 先简要分析这个页面包含哪些功能、信息层级、HIG 设计取舍，以及布局思路
 - 给出完整的 Objective-C 代码（.h / .m，包含 import、类定义、生命周期方法）
 - 说明如何在项目中使用这段代码（如何 push / present 出来查看效果）
 ```
@@ -274,8 +287,10 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 | 检查项 | 是否完成 |
 |--------|---------|
 | 页面能在模拟器/真机上正常显示，无崩溃 | [ ] |
-| 各控件位置、大小与设计稿基本一致 | [ ] |
-| 文字内容、字体大小、颜色与设计稿一致 | [ ] |
+| 页面功能、内容类型和导航关系与设计稿大体一致 | [ ] |
+| 信息层级清晰，主操作和辅助操作容易区分 | [ ] |
+| UI 符合 Apple HIG，具备 hierarchy、harmony、consistency | [ ] |
+| 字体、颜色、留白、触控区域和对比度清晰舒适 | [ ] |
 | 图片显示正常，无拉伸变形（contentMode 设置正确）| [ ] |
 | 不同屏幕尺寸（iPhone SE / 标准屏 / Max）布局正常 | [ ] |
 | 页面可以正常 push / pop 或 present / dismiss | [ ] |
@@ -297,11 +312,11 @@ UIKit 是 iOS 开发的基石，哪怕以后用 SwiftUI，UIKit 的底层逻辑�
 - 怎么处理键盘、怎么处理手势冲突
 - 怎么用 Objective-C 写约束（Masonry 或原生 NSLayoutConstraint）
 - 怎么把一个大页面拆成可维护的组件
-- 怎么把新 iOS 设计语言和旧设计稿结合起来，而不是盲目套效果
+- 怎么从旧设计稿提取功能和层级，再用 HIG 与新 iOS 设计语言重新组织界面
 
 **不要复制粘贴 AI 给的代码。** 先自己写，卡住了再看 AI 的提示，或者让 AI review 你的代码。代码是敲进脑子里的，不是复制进项目的。
 
-做完这个练习，你可以把它作为 UIKit 页面还原和多页面整合的练习经历。加油，实验室等你们出作品。
+做完这个练习，你可以把它作为 UIKit 页面实现和多页面整合的练习经历。加油，实验室等你们出作品。
 
 ---
 
