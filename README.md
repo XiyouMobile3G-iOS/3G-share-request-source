@@ -1,6 +1,6 @@
 # 3G Share — UIKit 仿写练习资源
 
-> **学长说**：学弟学妹们好！这个仓库是留给你们练手用的。里面是一套 APP 界面设计资源（PSD 源文件 + JPG 预览图 + 演示视频），不包含可直接运行的 Xcode 工程。你们需要先新建一个 iOS App 工程，再用 **UIKit** 把这些界面一行一行代码敲出来，尽量还原设计稿。
+> **学长说**：学弟学妹们好！这个仓库是留给你们练手用的。里面是一套 APP 界面设计资源（PSD 源文件 + JPG 预览图 + 演示视频），不包含可直接运行的 Xcode 工程。你们需要先新建一个 iOS App 工程，再用 **Objective-C + UIKit** 把这些界面一行一行代码敲出来，尽量还原设计稿。
 
 ---
 
@@ -12,7 +12,31 @@
 
 核心任务很简单：**看着设计稿，用纯代码写出尽量一致的界面。**
 
-推荐练习技术栈：**Swift + UIKit + 纯代码 Auto Layout**。如果你想用 Objective-C，也可以沿用同样的页面拆分和控件思路。
+推荐练习技术栈：**Objective-C + UIKit + 纯代码 Auto Layout**。默认不使用 Storyboard / XIB，页面、组件、约束和跳转逻辑都用 OC 代码实现。
+
+---
+
+## 技术栈与现代化要求
+
+基础要求：
+- 使用 **Objective-C + UIKit**，项目可以用最新稳定版 Xcode 创建。
+- 使用纯代码布局，优先练习 `NSLayoutConstraint`、`UILayoutGuide`、Safe Area、Trait Collection 和动态字体适配。
+- 兼容当前主流 iOS 版本，并尽量适配最新 iOS 的系统外观和交互规范。
+
+现代化要求：
+- 每次开工前先查看 Apple Developer Documentation 和 Human Interface Guidelines，以当时最新发布的 UIKit API、系统设计规范和 Xcode SDK 为准。
+- 优先使用标准 UIKit 控件，例如 `UINavigationBar`、`UITabBar`、`UIToolbar`、`UIButton`、`UICollectionView`。标准控件通常能自动获得新系统的视觉更新。
+- 如果最新 iOS 提供新的视觉能力，例如 iOS 26 的 Liquid Glass，可以在不破坏原设计层级的前提下做渐进增强。UIKit 中优先关注 `UIGlassEffect`、`UIGlassContainerEffect`、`UIVisualEffectView` 和新版 `UIButtonConfiguration`；旧系统必须提供降级方案，例如 `UIBlurEffect` 或普通半透明背景。
+- 使用新 API 时必须做版本判断，例如 `if (@available(iOS 26.0, *))` 或 `respondsToSelector:`，不要让低版本系统编译或运行崩溃。
+- 可以自由发挥加入合理的交互细节，例如 `UIImpactFeedbackGenerator`、`UISelectionFeedbackGenerator`、`UINotificationFeedbackGenerator` 的马达震动反馈。
+- 可以加入课堂没有重点讲过但很实用的 UIKit 组件，例如 `UIMenu`、`UIAction`、`UIContextMenuInteraction`、`UIEditMenuInteraction`，用于更多操作、长按菜单、编辑菜单和快捷操作。
+- 不要为了炫技堆满玻璃、动画和震动。新效果只服务于信息层级、反馈清晰度和操作效率。
+
+官方资料入口：
+- Apple Developer Documentation: https://developer.apple.com/documentation/uikit
+- Liquid Glass 技术概览: https://developer.apple.com/documentation/technologyoverviews/liquid-glass
+- UIKit 外观定制: https://developer.apple.com/documentation/uikit/appearance-customization
+- Human Interface Guidelines: https://developer.apple.com/design/human-interface-guidelines
 
 ---
 
@@ -29,7 +53,10 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 | UITabBarController 底部导航 | 主框架（首页-搜索-文章-活动-我的）|
 | UIScrollView 横向/纵向滚动 | 首页滑动内容、图片预览 |
 | 自定义 UI 组件封装 | 导航栏按钮、输入框样式、头像视图 |
-| 网络图片加载与缓存（SDWebImage / Kingfisher）| 任何带图片的页面 |
+| 现代 UIKit 组件 | UIMenu、UIAction、Context Menu、编辑菜单 |
+| 交互反馈 | 按钮点击、选择切换、提交成功/失败的马达震动反馈 |
+| 最新 iOS 视觉适配 | 标准控件新外观、Liquid Glass 渐进增强、深色模式 |
+| 网络图片加载与缓存（SDWebImage）| 任何带图片的页面 |
 | MVC 代码组织 | 整个项目 |
 
 ---
@@ -85,6 +112,12 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 10. 加上 **UINavigationController** 处理页面层级
 11. 用 **UserDefaults** 模拟登录状态，实现启动页 -> 登录/首页的流程
 
+### 第五阶段：现代化增强
+12. 为常用操作补充 `UIMenu` / `UIContextMenuInteraction`，例如作品卡片的收藏、分享、举报、删除
+13. 为关键交互补充 Haptic Feedback，例如 Tab 切换、点赞、上传成功、表单错误
+14. 使用最新 Xcode SDK 检查系统控件外观；如果目标系统支持 Liquid Glass，再为顶部栏、底部操作区、浮动按钮等少量关键元素做渐进增强
+15. 检查深色模式、动态字体、减少动态效果、降低透明度等辅助功能设置
+
 ---
 
 ## 开发建议（避坑指南）
@@ -126,7 +159,7 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 
 ```
 我正在使用 UIKit 对一个名为「3G Share」的 App 进行界面还原练习。
-该项目是一套完整的高校创意分享平台 UI 设计资源，包含 8 大模块：
+技术栈固定为 Objective-C + UIKit + 纯代码 Auto Layout。该项目是一套完整的高校创意分享平台 UI 设计资源，包含 8 大模块：
 开机界面、登录界面、注册界面、首页、搜索、文章、活动、个人信息。
 
 项目路径下 `share+4.18最终/jpg 预览图/` 目录中有所有界面的截图，
@@ -135,7 +168,9 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 请基于目录结构和预览图，帮我梳理：
 1. 这个 App 的完整页面层级树（哪个页面跳转到哪个页面）
 2. 每个页面最适合用 UIKit 的哪些控件实现
-3. 建议的代码文件组织方式（哪些页面可以复用基类 / 通用组件）
+3. 哪些地方适合加入现代 UIKit 组件，例如 UIMenu、UIAction、UIContextMenuInteraction、UIFeedbackGenerator
+4. 哪些地方可以根据当前最新 iOS 设计规范做渐进增强，例如 Liquid Glass、深色模式、动态字体
+5. 建议的 Objective-C 代码文件组织方式（哪些页面可以复用基类 / 通用组件）
 ```
 
 **用的时候**：把这段直接发给 AI，附上你看到的预览图描述或截图。
@@ -145,7 +180,7 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 ### Level 2 — 单页面实现（让 AI 帮你写具体页面）
 
 ```
-请帮我用 UIKit (Swift) 实现「3G Share」App 的【填入页面名，如：登录界面】。
+请帮我用 Objective-C + UIKit 实现「3G Share」App 的【填入页面名，如：登录界面】。
 
 【参考资源】
 - 预览图路径：share+4.18最终/jpg 预览图/2 登陆界面.jpg
@@ -157,10 +192,13 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 3. 界面元素要与设计稿保持一致：背景色、按钮样式、输入框圆角、间距等
 4. 按钮需要绑定点击事件（先 print 模拟，后续接入真实逻辑）
 5. 如果是输入页面，处理键盘弹出时的布局调整（键盘遮挡输入框的问题）
+6. 根据当前最新 iOS 和 UIKit 官方文档，判断是否适合加入新版系统交互或视觉效果
+7. 可以加入合理的 Haptic Feedback、UIMenu、UIContextMenuInteraction 等增强，但要有版本判断和旧系统降级方案
+8. 如果使用 iOS 26 Liquid Glass 等新能力，优先使用 UIKit 原生 API，并提供低版本 fallback
 
 【输出格式】
 - 先简要分析这个页面包含哪些 UI 元素，以及布局思路
-- 给出完整的 Swift 代码（包含 import、类定义、生命周期方法）
+- 给出完整的 Objective-C 代码（.h / .m，包含 import、类定义、生命周期方法）
 - 说明如何在项目中使用这段代码（如何 push / present 出来查看效果）
 ```
 
@@ -179,13 +217,15 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 - 个人信息页和设置页都有类似的"箭头行"（左侧文字 + 右侧箭头）
 
 【要求】
-1. 基于 UIKit 封装自定义 UIView / UIButton / UITableViewCell 子类
+1. 基于 Objective-C + UIKit 封装自定义 UIView / UIButton / UITableViewCell 子类
 2. 支持通过初始化参数或属性配置内容，方便在不同页面复用
-3. 提供使用示例代码（在某个 UIViewController 中如何使用这个组件）
-4. 代码注释清晰，说明每个公开属性的作用
+3. 支持按需加入 UIMenu、UIAction、UIContextMenuInteraction 或 UIFeedbackGenerator
+4. 使用最新 iOS API 时必须包含版本判断和旧系统 fallback
+5. 提供使用示例代码（在某个 UIViewController 中如何使用这个组件）
+6. 代码注释清晰，说明每个公开属性的作用
 
 【输出格式】
-- 组件类代码（.swift 文件）
+- 组件类代码（.h / .m 文件）
 - 使用示例代码
 - 该组件适用于项目中哪些页面的说明
 ```
@@ -197,7 +237,7 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 ### Level 4 — 项目架构（让 AI 帮你整合整个项目）
 
 ```
-我已经用 UIKit 实现了「3G Share」App 的多个独立页面，现在需要把它们整合成一个完整的可运行项目。
+我已经用 Objective-C + UIKit 实现了「3G Share」App 的多个独立页面，现在需要把它们整合成一个完整的可运行项目。
 
 【已完成的页面】（根据你的实际情况勾选或列出）
 [ ] 开机界面（LaunchScreen.storyboard 或纯代码）
@@ -215,12 +255,14 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 3. 实现登录状态判断：未登录时显示登录页，登录后进入主框架
 4. 用 UserDefaults 模拟用户登录状态（用户名、token）
 5. 各页面之间的跳转逻辑（如：首页点击作品 -> 作品详情；搜索点击结果 -> 详情；个人信息点击设置 -> 设置页）
+6. 根据最新 iOS 设计规范补充现代化增强：标准系统控件外观、UIMenu、Haptic Feedback、深色模式、动态字体、必要时的 Liquid Glass 渐进增强
 
 【输出格式】
 - App 整体架构图（文字描述或伪代码结构）
 - AppDelegate / SceneDelegate 中的关键配置代码
 - 主框架搭建代码（TabBarController + NavigationController 嵌套）
 - 登录状态管理代码（简单的单例或工具类）
+- 新 iOS API 的版本判断和 fallback 策略
 ```
 
 **用的时候**：勾选你已经写完的页面，让 AI 基于现有进度帮你搭架构。
@@ -238,6 +280,10 @@ UIKit 光看教程是不够的，必须上手写。这个项目能帮你练到�
 | 不同屏幕尺寸（iPhone SE / 标准屏 / Max）布局正常 | [ ] |
 | 页面可以正常 push / pop 或 present / dismiss | [ ] |
 | 按钮点击有响应（至少 print 日志）| [ ] |
+| 合理使用 UIMenu / Context Menu / Edit Menu 等现代 UIKit 组件 | [ ] |
+| 关键交互有适度马达震动反馈，且不会频繁打扰用户 | [ ] |
+| 新 iOS API 都有版本判断和旧系统 fallback | [ ] |
+| 深色模式、动态字体、减少动态效果、降低透明度下仍可用 | [ ] |
 | 代码有基本注释，变量命名清晰 | [ ] |
 
 ---
@@ -249,8 +295,9 @@ UIKit 是 iOS 开发的基石，哪怕以后用 SwiftUI，UIKit 的底层逻辑�
 - 什么时候用 TableView，什么时候用 CollectionView
 - 怎么写自定义 Cell，怎么优化复用
 - 怎么处理键盘、怎么处理手势冲突
-- 怎么用代码写约束（SnapKit 或原生 NSLayoutConstraint）
+- 怎么用 Objective-C 写约束（Masonry 或原生 NSLayoutConstraint）
 - 怎么把一个大页面拆成可维护的组件
+- 怎么把新 iOS 设计语言和旧设计稿结合起来，而不是盲目套效果
 
 **不要复制粘贴 AI 给的代码。** 先自己写，卡住了再看 AI 的提示，或者让 AI review 你的代码。代码是敲进脑子里的，不是复制进项目的。
 
